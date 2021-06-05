@@ -1,8 +1,14 @@
 <?php
 
+use App\Http\Controllers\Admin\CheckoutController;
+use App\Http\Controllers\Admin\HeaderTransaksiController;
+use App\Http\Controllers\Admin\KategoriController;
+use App\Http\Controllers\Admin\ProdukController as AdminProdukController;
+use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\BerandaController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\KeranjangController;
 use App\Http\Controllers\ProdukController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -27,7 +33,17 @@ Auth::routes(['verify' => true]);
 
 Route::middleware(['verified'])->group(function () {
     Route::post('logout', [LoginController::class, 'logout'])->name('logout');
-    Route::middleware(['admin'])->group(function () {
+    Route::resource('keranjang', KeranjangController::class);
+
+
+    Route::group(['middleware' => ['admin']], function () {
+        Route::get('/profil', [UserController::class, 'profil'])->name('user.profil');
+
         Route::resource('dashboard', DashboardController::class);
+        Route::resource('user', UserController::class);
+        Route::resource('transaksi', CheckoutController::class);
+        Route::resource('produk', AdminProdukController::class);
+        Route::resource('kategori', KategoriController::class);
+        Route::resource('header-transaksi', HeaderTransaksiController::class);
     });
 });

@@ -50,6 +50,7 @@
         <h5>Sudah punya akun?
             <a href="{{route('login')}}">Login Sekarang!</a>
         </h5>
+        <a href="{{route('beranda')}}">Kembali ke beranda</a>
     </div>
 </div>
 </div>

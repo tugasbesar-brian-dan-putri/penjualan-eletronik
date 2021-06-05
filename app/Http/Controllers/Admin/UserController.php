@@ -14,7 +14,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        return view('user.index');
     }
 
     /**
@@ -81,5 +81,10 @@ class UserController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function profil()
+    {
+        return view('profil.index');
     }
 }
