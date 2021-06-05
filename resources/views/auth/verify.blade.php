@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', 'Email verifikasi')
+
 @section('content')
 <div class="card-container">
     <div class="card-verify text-center">
