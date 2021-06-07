@@ -20,7 +20,7 @@ class DatabaseSeeder extends Seeder
             'nama' => 'Adminsitrator',
             'alamat' => 'Malang',
             'no_hp' => '085648989767',
-            'email' => 'mochammadsyaifuddinz@gmail.com',
+            'email' => 'admin@gmail.com',
             'role' => 'adm',
             'password' => Hash::make('admin2021'),
             'email_verified_at' => now()

@@ -6,15 +6,17 @@
     <link rel="apple-touch-icon" sizes="76x76" href="{{asset('templates/dashboard')}}/img/apple-icon.png">
     <link rel="icon" type="image/png" href="{{asset('templates/dashboard')}}/img/favicon.png">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
+
     <title>
-        Material Dashboard by Creative Tim
+        @yield('title') - Electronic Online Shop
     </title>
     <meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
     <!--     Fonts and icons     -->
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
     <!-- CSS Files -->
-    <link href="{{asset('templates/dashboard')}}/css/material-dashboard.css?v=2.1.2" rel="stylesheet" />
+    <link href="{{asset('templates/dashboard')}}/css/material-dashboard.css" rel="stylesheet" />
     <!-- CSS Just for demo purpose, don't include it in your project -->
     <link href="{{asset('templates/dashboard')}}/demo/demo.css" rel="stylesheet" />
 </head>
@@ -36,6 +38,7 @@
                     </div>
                 </div>
             </footer>
+            @yield('modal')
         </div>
     </div>
 
@@ -54,6 +57,15 @@
     <script src="{{asset('templates/dashboard')}}/js/material-dashboard.js?v=2.1.2" type="text/javascript"></script>
     <!-- Material Dashboard DEMO methods, don't include it in your project! -->
     <script src="{{asset('templates/dashboard')}}/demo/demo.js"></script>
+    <script type="text/javascript">
+        var APP_URL = "{!! url('/') !!}";
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+    </script>
     @yield('script')
 </body>
 

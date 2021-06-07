@@ -13,7 +13,7 @@
                             <i class="material-icons">people</i>
                         </div>
                         <p class="card-category">User</p>
-                        <h3 class="card-title">49</h3>
+                        <h3 class="card-title">{{$data['userCount']}}</h3>
                     </div>
                     <div class="card-footer">
                         <div class="stats">
@@ -30,7 +30,7 @@
                             <i class="material-icons">shopping_cart</i>
                         </div>
                         <p class="card-category">Transaksi</p>
-                        <h3 class="card-title">100</h3>
+                        <h3 class="card-title">{{$data['transaksiCount']}}</h3>
                     </div>
                     <div class="card-footer">
                         <div class="stats">
@@ -46,7 +46,7 @@
                             <i class="material-icons">category</i>
                         </div>
                         <p class="card-category">Kategori Produk</p>
-                        <h3 class="card-title">75</h3>
+                        <h3 class="card-title">{{$data['kategoriCount']}}</h3>
                     </div>
                     <div class="card-footer">
                         <div class="stats">
@@ -62,7 +62,7 @@
                             <i class="material-icons">inventory_2</i>
                         </div>
                         <p class="card-category">Produk</p>
-                        <h3 class="card-title">+245</h3>
+                        <h3 class="card-title">{{$data['produkCount']}}</h3>
                     </div>
                     <div class="card-footer">
                         <div class="stats">

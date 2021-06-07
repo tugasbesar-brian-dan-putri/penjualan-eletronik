@@ -39,7 +39,7 @@ Route::middleware(['verified'])->group(function () {
     Route::group(['middleware' => ['admin']], function () {
         Route::get('/profil', [UserController::class, 'profil'])->name('user.profil');
 
-        Route::resource('dashboard', DashboardController::class);
+        Route::resource('dashboard', DashboardController::class)->only(['index']);
         Route::resource('user', UserController::class);
         Route::resource('transaksi', CheckoutController::class);
         Route::resource('produk', AdminProdukController::class);
