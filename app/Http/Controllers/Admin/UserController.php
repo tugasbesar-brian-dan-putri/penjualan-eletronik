@@ -117,7 +117,7 @@ class UserController extends Controller
     public function destroy($id)
     {
         $this->model->delete($id);
-        return redirect()->back()->with('success', 'Data berhasil dihapus');
+        return response()->json(['success' => true], 200);
     }
 
     public function profil()
