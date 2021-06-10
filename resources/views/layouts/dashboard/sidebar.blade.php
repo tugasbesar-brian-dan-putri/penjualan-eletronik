@@ -10,6 +10,12 @@
                         <p>Dashboard</p>
                     </a>
                 </li>
+                <li class="nav-item ">
+                    <a class="nav-link" target="_blank" href="{{route('beranda')}}">
+                        <i class="material-icons">home</i>
+                        <p>Halaman Utama</p>
+                    </a>
+                </li>
                 <li class="nav-item {{Request::segment(1) == 'profil' ? 'active' : ''}}">
                     <a class="nav-link" href="{{route('user.profil')}}">
                         <i class="material-icons">person</i>

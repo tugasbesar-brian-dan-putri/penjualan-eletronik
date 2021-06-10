@@ -24,7 +24,6 @@ class CheckoutController extends Controller
      */
     public function create()
     {
-        //
     }
 
     /**

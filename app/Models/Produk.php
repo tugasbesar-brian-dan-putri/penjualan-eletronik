@@ -19,4 +19,14 @@ class Produk extends Model
         'deskripsi',
         'gambar'
     ];
+
+    /**
+     * Get the user that owns the Produk
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function kategori()
+    {
+        return $this->belongsTo(Kategori::class, 'kategori_id');
+    }
 }

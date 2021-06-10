@@ -103,7 +103,6 @@
                                     <ul>
                                         <li><a href="{{route('beranda')}}">Beranda</a></li>
                                         <li><a href="{{route('produk.index')}}">Daftar Produk</a></li>
-                                        <li><a href="{{route('beranda.tentangkami')}}">Tentang Kami</a></li>
                                     </ul>
                                 </div>
                                 <!--Main Navigation End -->
