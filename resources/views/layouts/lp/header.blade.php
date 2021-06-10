@@ -102,7 +102,7 @@
                                 <div class="main-navigation d-none d-lg-block">
                                     <ul>
                                         <li><a href="{{route('beranda')}}">Beranda</a></li>
-                                        <li><a href="{{route('produk.index')}}">Daftar Produk</a></li>
+                                        <li><a href="{{route('beranda.listproduk')}}">Daftar Produk</a></li>
                                     </ul>
                                 </div>
                                 <!--Main Navigation End -->
@@ -154,8 +154,7 @@
                             <nav id="mobile-menu-active">
                                 <ul class="menu-overflow">
                                     <li><a href="{{route('beranda')}}">Beranda</a></li>
-                                    <li><a href="{{route('produk.index')}}">Daftar Produk</a></li>
-                                    <li><a href="{{route('beranda.tentangkami')}}">Tentang Kami</a></li>
+                                    <li><a href="{{route('beranda.listproduk')}}">Daftar Produk</a></li>
                                 </ul>
                             </nav>
                         </div>

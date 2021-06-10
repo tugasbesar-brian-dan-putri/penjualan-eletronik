@@ -25,9 +25,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [BerandaController::class, 'index'])->name('beranda');
-Route::get('tentang-kami', [BerandaController::class, 'tentangkami'])->name('beranda.tentangkami');
-Route::resource('beranda', BerandaController::class);
-Route::resource('produk', ProdukController::class);
+Route::get('produk/list', [BerandaController::class, 'listProduk'])->name('beranda.listproduk');
+Route::get('produk/detail/{id}', [BerandaController::class, 'detailProduk'])->name('beranda.detailproduk');
 
 Auth::routes(['verify' => true]);
 
