@@ -10,6 +10,9 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
+
+
     <title>@yield('title') - Online Shop</title>
     <!-- Favicon -->
     <link rel="shortcut icon" type="image/x-icon" href="{{asset('templates/landing-page')}}/images/favicon/favicon.png" />
@@ -88,6 +91,26 @@
 
     <!-- Main Activation JS -->
     <script src="{{asset('templates/landing-page')}}/js/main.js"></script>
+    <script type="text/javascript">
+        var APP_URL = "{!! url('/') !!}";
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        function getCount() {
+            $.get(`${APP_URL}/api/get-count-cart`, function(data) {
+                if (data == 0) {
+                    $('.count-cart').attr('data-count', 0);
+                }
+                $('.count-cart').attr('data-count', data);
+            });
+        }
+        setInterval(getCount, 1000);
+
+    </script>
     @yield('script')
+
 </body>
 </html>

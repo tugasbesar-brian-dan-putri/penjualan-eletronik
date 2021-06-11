@@ -38,7 +38,7 @@
                     <h1>{{$produk->nama}}</h1>
                     <div class="pricing-meta">
                         <ul>
-                            <li class="old-price not-cut">Rp {{number_format($produk->harga, 0, ',', '.')}}</li>
+                            <li class="old-price not-cut text-danger">Rp {{number_format($produk->harga, 0, ',', '.')}}</li>
                         </ul>
                     </div>
                     <hr>
@@ -56,14 +56,42 @@
                             <input class="cart-plus-minus-box" type="text" name="qtybutton" value="1" min="1" />
                         </div>
                         <div class="pro-details-cart btn-hover">
-                            <a href="#"> + Tambahkan Ke Keranjang</a>
+                            @if (Auth::user())
+                            <a href="javascript:void(0)" onclick="addToCart({{$produk->id}})"> + Tambahkan Ke Keranjang</a>
+                            @else
+                            <a href="javascript:void(0)" onclick="showAlert()"> + Tambahkan Ke Keranjang</a>
+                            @endif
                         </div>
                     </div>
                 </div>
+                <div class="alert alert-danger" id="alert-add-cart" style="display: none;"></div>
             </div>
         </div>
     </div>
 </section>
 <!-- Shop details Area End -->
 
+@endsection
+
+@section('script')
+<script>
+    function addToCart(id) {
+        $.ajax({
+            type: "POST"
+            , url: `${APP_URL}/detail-cart`
+            , data: {
+                id: id
+            }
+            , success: function(res) {
+                window.location.href = `${APP_URL}/cart`;
+            }
+        });
+    }
+
+    function showAlert() {
+        $('#alert-add-cart').show();
+        $('#alert-add-cart').text('Anda harus login terlebih dahulu.')
+    }
+
+</script>
 @endsection

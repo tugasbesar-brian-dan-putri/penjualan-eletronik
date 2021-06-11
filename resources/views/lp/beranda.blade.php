@@ -67,7 +67,7 @@
                         </div>
                         <div class="add-to-link">
                             <ul>
-                                <li class="cart"><a class="cart-btn" href="#">Tambah Ke Keranjang </a></li>
+                                <li class="cart"><a class="cart-btn" href="javascript:void(0)" onclick="addToCart({{$item->id}})">Tambah Ke Keranjang </a></li>
                             </ul>
                         </div>
                     </article>
@@ -80,4 +80,22 @@
 </section>
 <!-- Category Tab Area end -->
 
+@endsection
+
+@section('script')
+<script>
+    function addToCart(id) {
+        $.ajax({
+            type: "POST"
+            , url: `${APP_URL}/detail-cart`
+            , data: {
+                id: id
+            }
+            , success: function(res) {
+                window.location.href = `${APP_URL}/cart`;
+            }
+        });
+    }
+
+</script>
 @endsection

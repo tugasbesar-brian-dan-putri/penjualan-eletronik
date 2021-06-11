@@ -2,13 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Checkout;
-use App\Models\Kategori;
-use App\Models\Produk;
-use App\Models\User;
+use App\Models\Cart;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
-class DashboardController extends Controller
+class CartController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,12 +15,17 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        $data = [
-            'userCount' => User::where('role', 'usr')->count(),
-            'produkCount' => Produk::count(),
-            'kategoriCount' => Kategori::count(),
-        ];
-        return view('dashboard.admin', compact('data'));
+        $itemcart = Cart::where('user_id', Auth::user()->id)
+            ->where('status_cart', 'cart')
+            ->first();
+        if ($itemcart) {
+            if ($itemcart->detail->count() == 0) {
+                Cart::where('user_id', Auth::user()->id)
+                    ->where('status_cart', 'cart')
+                    ->delete();
+            }
+        }
+        return view('lp.cart', compact('itemcart'))->with('no', 1);
     }
 
     /**
@@ -89,5 +92,21 @@ class DashboardController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function kosongkan($id)
+    {
+        $itemcart = Cart::findOrFail($id);
+        $itemcart->detail()->delete(); //hapus semua item di cart detail
+        $itemcart->delete();
+        return response()->json(['success', true], 200);
+    }
+
+    public function getCount()
+    {
+        if (Auth::check()) {
+            return Cart::getCount(Auth::user()->id);
+        }
+        return 0;
     }
 }

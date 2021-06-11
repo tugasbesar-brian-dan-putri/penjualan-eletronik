@@ -30,7 +30,7 @@
                             <i class="material-icons">shopping_cart</i>
                         </div>
                         <p class="card-category">Transaksi</p>
-                        <h3 class="card-title">{{$data['transaksiCount']}}</h3>
+                        <h3 class="card-title"></h3>
                     </div>
                     <div class="card-footer">
                         <div class="stats">

@@ -5,9 +5,9 @@ use App\Http\Controllers\Admin\ProdukController as AdminProdukController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\BerandaController;
+use App\Http\Controllers\CartController;
+use App\Http\Controllers\CartDetailController;
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\KeranjangController;
-use App\Http\Controllers\ProdukController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -25,13 +25,15 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [BerandaController::class, 'index'])->name('beranda');
 Route::get('produk/list', [BerandaController::class, 'listProduk'])->name('beranda.listproduk');
 Route::get('produk/detail/{id}', [BerandaController::class, 'detailProduk'])->name('beranda.detailproduk');
+Route::put('kosongkan-keranjang/{id}', [CartController::class, 'kosongkan']);
+Route::get('api/get-count-cart', [CartController::class, 'getCount']);
 
 Auth::routes(['verify' => true]);
 
 Route::middleware(['verified'])->group(function () {
     Route::post('logout', [LoginController::class, 'logout'])->name('logout');
-    Route::resource('keranjang', KeranjangController::class);
-
+    Route::resource('cart', CartController::class);
+    Route::resource('detail-cart', CartDetailController::class);
 
     Route::group(['middleware' => ['admin']], function () {
         Route::get('/profil', [UserController::class, 'profil'])->name('user.profil');

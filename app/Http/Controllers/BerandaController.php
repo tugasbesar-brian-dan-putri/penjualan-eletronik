@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cart;
 use App\Models\Produk;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class BerandaController extends Controller
 {
+
     public function index()
     {
         $produk = Produk::with('kategori')->limit(6)->latest()->get();

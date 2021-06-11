@@ -78,10 +78,16 @@
                                 </div>
                                 <!--Seach Area End -->
                                 <!--Cart info Start -->
+                                <style>
+                                    .count-cart::after {
+                                        content: attr(data-count);
+                                    }
+
+                                </style>
                                 <div class="cart-info-wrap">
                                     <div class="cart-info d-flex home-9">
                                         <div class="mini-cart-warp">
-                                            <a href="#" class="count-cart"></a>
+                                            <a href="{{route('cart.index')}}" class="count-cart" data-count=""></a>
                                         </div>
                                     </div>
                                 </div>
@@ -141,7 +147,7 @@
                                 <!--Cart info Start -->
                                 <div class="cart-info home-9 d-flex">
                                     <div class="mini-cart-warp">
-                                        <a href="#" class="count-cart"></a>
+                                        <a href="{{route('cart.index')}}" class="count-cart" data-count=""></a>
                                     </div>
                                 </div>
                                 <!--Cart info End -->
