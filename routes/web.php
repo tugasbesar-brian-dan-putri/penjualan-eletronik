@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\KategoriController;
+use App\Http\Controllers\Admin\OrderController as AdminOrderController;
 use App\Http\Controllers\Admin\ProdukController as AdminProdukController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\AlamatPengirimanController;
@@ -50,6 +51,7 @@ Route::middleware(['verified'])->group(function () {
         Route::get('/profil', [UserController::class, 'profil'])->name('user.profil');
 
         Route::resource('dashboard', DashboardController::class)->only(['index']);
+        Route::resource('transaksi', AdminOrderController::class);
         Route::resource('user', UserController::class);
         Route::resource('produk', AdminProdukController::class);
         Route::resource('kategori', KategoriController::class);

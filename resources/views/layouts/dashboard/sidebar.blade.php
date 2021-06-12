@@ -1,6 +1,6 @@
     <div class="sidebar" data-color="purple" data-background-color="white" data-image="{{asset('templates/dashboard')}}/img/sidebar-3.jpg">
         <div class="logo"><a href="{{route('beranda')}}" class="simple-text logo-normal">
-                Electronic Online Shop
+                Olshop Electronic
             </a></div>
         <div class="sidebar-wrapper">
             <ul class="nav">
@@ -40,14 +40,14 @@
                         <p>Data Produk</p>
                     </a>
                 </li>
-                {{-- <li class="nav-item {{Request::segment(1) == 'transaksi' ? 'active' : ''}}">
-                <a class="nav-link" href="{{route('transaksi.index')}}">
-                    <i class="material-icons">
-                        shopping_cart
-                    </i>
-                    <p>Data Transaksi</p>
-                </a>
-                </li> --}}
+                <li class="nav-item {{Request::segment(1) == 'transaksi' ? 'active' : ''}}">
+                    <a class="nav-link" href="{{route('transaksi.index')}}">
+                        <i class="material-icons">
+                            shopping_cart
+                        </i>
+                        <p>Data Transaksi</p>
+                    </a>
+                </li>
             </ul>
         </div>
     </div>
