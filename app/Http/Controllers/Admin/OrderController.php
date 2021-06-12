@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Cart;
 use App\Models\Order;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
@@ -48,8 +49,8 @@ class OrderController extends Controller
                 })
                 ->addColumn('action', function ($row) {
                     $button = '<div class="btn-group" role="group">';
-                    $button .= '<a href="/transaksi/' . $row->id . '/edit"  class="btn btn-sm btn-info"><i class="material-icons">edit</i></a>';
-                    $button .= '<a href="/transaksi/' . $row->id . '"  class="btn btn-sm btn-success"><i class="material-icons">visibility</i></a>';
+                    $button .= '<a href="javascript:void(0)" data-toggle="modal" data-id="' . $row->id . '" data-target="#editStatusTransaksiModal" class="btn btn-sm btn-info btn-edit-transaksi"><i class="material-icons">edit</i></a>';
+                    $button .= '<a href="/transaksi/' . $row->id . '/edit"  class="btn btn-sm btn-success"><i class="material-icons">visibility</i></a>';
                     $button .= '<a href="javascript:void(0)" data-toggle="modal" data-id="' . $row->id . '" data-target="#deleteTransaksiModal" class="btn btn-sm btn-danger btn-delete-transaksi"><i class="material-icons">delete</i></a>';
                     $button .= '</div>';
                     return $button;
@@ -100,7 +101,8 @@ class OrderController extends Controller
      */
     public function edit($id)
     {
-        //
+        $data = Order::findOrFail($id);
+        return response()->json(['success' => true, 'html' => view('transaksi.edit', compact('data'))->render()], 200);
     }
 
     /**
@@ -112,7 +114,9 @@ class OrderController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $payload = $request->only(['status_pembayaran', 'status_pengiriman']);
+        Cart::findOrFail($id)->update($payload);
+        return back();
     }
 
     /**

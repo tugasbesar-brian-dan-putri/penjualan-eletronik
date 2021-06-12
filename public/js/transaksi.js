@@ -37,4 +37,18 @@ $(function () {
             e.preventDefault();
         });
     });
+
+
+    $("#table-transaksi").on("click", ".btn-edit-transaksi", function () {
+        var id = $(this).attr('data-id')
+        $.ajax({
+            type: "GET"
+            , url: `${APP_URL}/transaksi/${id}/edit`
+            , success: function (res) {
+                $('#body-edit-status-transaksi').html(res.html)
+            }
+            , error: function (err) {
+            }
+        });
+    });
 });
