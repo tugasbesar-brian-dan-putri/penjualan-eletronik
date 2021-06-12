@@ -50,7 +50,7 @@ class OrderController extends Controller
                 ->addColumn('action', function ($row) {
                     $button = '<div class="btn-group" role="group">';
                     $button .= '<a href="javascript:void(0)" data-toggle="modal" data-id="' . $row->id . '" data-target="#editStatusTransaksiModal" class="btn btn-sm btn-info btn-edit-transaksi"><i class="material-icons">edit</i></a>';
-                    $button .= '<a href="/transaksi/' . $row->id . '/edit"  class="btn btn-sm btn-success"><i class="material-icons">visibility</i></a>';
+                    $button .= '<a href="/transaksi/' . $row->id . '"  class="btn btn-sm btn-success"><i class="material-icons">visibility</i></a>';
                     $button .= '<a href="javascript:void(0)" data-toggle="modal" data-id="' . $row->id . '" data-target="#deleteTransaksiModal" class="btn btn-sm btn-danger btn-delete-transaksi"><i class="material-icons">delete</i></a>';
                     $button .= '</div>';
                     return $button;
@@ -90,7 +90,8 @@ class OrderController extends Controller
      */
     public function show($id)
     {
-        //
+        $data = Order::findOrFail($id);
+        return view('transaksi.show', compact('data'));
     }
 
     /**
