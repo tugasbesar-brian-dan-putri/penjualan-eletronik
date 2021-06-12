@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AlamatPengiriman;
 use App\Models\Cart;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -18,6 +19,7 @@ class CartController extends Controller
         $itemcart = Cart::where('user_id', Auth::user()->id)
             ->where('status_cart', 'cart')
             ->first();
+        $alamatpengiriman = AlamatPengiriman::where('user_id', Auth::user()->id)->orderBy('status', 'DESC')->get();
         if ($itemcart) {
             if ($itemcart->detail->count() == 0) {
                 Cart::where('user_id', Auth::user()->id)
@@ -25,7 +27,7 @@ class CartController extends Controller
                     ->delete();
             }
         }
-        return view('lp.cart', compact('itemcart'))->with('no', 1);
+        return view('lp.cart', compact('itemcart', 'alamatpengiriman'));
     }
 
     /**

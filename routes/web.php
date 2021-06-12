@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\KategoriController;
 use App\Http\Controllers\Admin\ProdukController as AdminProdukController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\AlamatPengirimanController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\BerandaController;
 use App\Http\Controllers\CartController;
@@ -25,15 +26,18 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [BerandaController::class, 'index'])->name('beranda');
 Route::get('produk/list', [BerandaController::class, 'listProduk'])->name('beranda.listproduk');
 Route::get('produk/detail/{id}', [BerandaController::class, 'detailProduk'])->name('beranda.detailproduk');
-Route::put('kosongkan-keranjang/{id}', [CartController::class, 'kosongkan']);
-Route::get('api/get-count-cart', [CartController::class, 'getCount']);
 
 Auth::routes(['verify' => true]);
 
 Route::middleware(['verified'])->group(function () {
+    Route::get('edit-alamat-produk/{id}', [CartDetailController::class, 'editAlamat'])->name('editalamatproduk');
+    Route::put('update-alamat-produk/{id}', [CartDetailController::class, 'updateAlamat'])->name('updatealamatproduk');
+    Route::put('kosongkan-keranjang/{id}', [CartController::class, 'kosongkan']);
+    Route::get('api/get-count-cart', [CartController::class, 'getCount']);
     Route::post('logout', [LoginController::class, 'logout'])->name('logout');
     Route::resource('cart', CartController::class);
     Route::resource('detail-cart', CartDetailController::class);
+    Route::resource('alamat-pengiriman', AlamatPengirimanController::class);
 
     Route::group(['middleware' => ['admin']], function () {
         Route::get('/profil', [UserController::class, 'profil'])->name('user.profil');

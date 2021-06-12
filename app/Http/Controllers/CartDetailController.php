@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AlamatPengiriman;
 use App\Models\Cart;
 use App\Models\CartDetail;
 use App\Models\Produk;
@@ -42,6 +43,11 @@ class CartDetailController extends Controller
         ]);
         $user_id = Auth::user()->id;
         $itemproduk = Produk::findOrFail($request->id);
+
+        if ($request->qty > $itemproduk->stok) {
+            return response()->json(['success' => false, 'msg' => 'Jumlah qty melebihi stok produk'], 500);
+        }
+
         // cek dulu apakah sudah ada shopping cart untuk user yang sedang login
         $cart = Cart::where('user_id', $user_id)
             ->where('status_cart', 'cart')
@@ -62,7 +68,7 @@ class CartDetailController extends Controller
         $cekdetail = CartDetail::where('cart_id', $itemcart->id)
             ->where('produk_id', $itemproduk->id)
             ->first();
-        $qty = 1; // diisi 1, karena kita set ordernya 1
+        $qty = $request->qty;
         $harga = $itemproduk->harga; //ambil harga produk
         $subtotal = $qty * $harga;
         if ($cekdetail) {
@@ -78,6 +84,16 @@ class CartDetailController extends Controller
             $inputan['harga'] = $harga;
             $inputan['subtotal'] = ($harga * $qty);
             $itemdetail = CartDetail::create($inputan);
+
+            $alamatutama = AlamatPengiriman::where([
+                'user_id' => Auth::user()->id,
+                'status' => 1
+            ])->first();
+            if ($alamatutama) {
+                $itemdetail->update([
+                    'alamat_pengiriman_id' => $alamatutama->id
+                ]);
+            }
             // update subtotal dan total di table cart
             $itemdetail->cart->updatetotal($itemdetail->cart, $subtotal);
         }
@@ -115,7 +131,32 @@ class CartDetailController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $itemdetail = CartDetail::findOrFail($id);
+        $stok = $itemdetail->produk->stok;
+        $param = $request->param;
+
+        if ($param == 'inc') {
+            // update detail cart
+            if ($itemdetail->qty < $stok) {
+                $qty = 1;
+                $itemdetail->updatedetail($itemdetail, $qty, $itemdetail->harga);
+                // update total cart
+                $itemdetail->cart->updatetotal($itemdetail->cart, $itemdetail->harga);
+                return response()->json(['success' => true, 'msg' => 'Qty berhasil diupdate'], 200);
+            }
+            return response()->json(['success' => false, 'msg' => 'Jumlah qty melebihi stok produk'], 500);
+        }
+        if ($param == 'dec') {
+            // update detail cart
+            if ($itemdetail->qty > 1) {
+                $qty = 1;
+                $itemdetail->updatedetail($itemdetail, '-' . $qty, $itemdetail->harga);
+                // update total cart
+                $itemdetail->cart->updatetotal($itemdetail->cart, '-' . $itemdetail->harga);
+                return response()->json(['success' => true, 'msg' => 'Qty berhasil diupdate'], 200);
+            }
+            return response()->json(['success' => false, 'msg' => 'Qty minimal 1'], 500);
+        }
     }
 
     /**
@@ -144,5 +185,21 @@ class CartDetailController extends Controller
         } else {
             return response()->json(['success' => false], 500);
         }
+    }
+
+    public function editAlamat($id)
+    {
+        $alamatpengiriman = AlamatPengiriman::where('user_id', Auth::user()->id)->orderBy('status', 'DESC')->get();
+        $data = CartDetail::findOrFail($id);
+        return response()->json(['success' => true, 'html' => view('lp.edit-alamat-produk', compact('alamatpengiriman', 'data'))->render()], 200);
+    }
+
+    public function updateAlamat(Request $request, $id)
+    {
+        $alamatid = $request->alamat_pengiriman_id;
+        CartDetail::findOrFail($id)->update([
+            'alamat_pengiriman_id' => $alamatid
+        ]);
+        return back()->with('success', 'Data berhasil diupdate');
     }
 }

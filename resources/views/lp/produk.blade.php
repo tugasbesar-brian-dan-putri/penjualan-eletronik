@@ -62,11 +62,11 @@
                                 </ul>
                             </div>
                         </div>
-                        <div class="add-to-link">
+                        {{-- <div class="add-to-link">
                             <ul>
                                 <li class="cart"><a class="cart-btn" href="#">Tambah Ke Keranjang </a></li>
                             </ul>
-                        </div>
+                        </div> --}}
                     </article>
                     @endforeach
                 </div>

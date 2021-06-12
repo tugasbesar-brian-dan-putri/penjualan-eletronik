@@ -12,6 +12,7 @@ class CartDetail extends Model
     protected $table = 'cart_details';
     protected $fillable = [
         'produk_id',
+        'alamat_pengiriman_id',
         'cart_id',
         'qty',
         'harga',
@@ -27,6 +28,11 @@ class CartDetail extends Model
     public function produk()
     {
         return $this->belongsTo(Produk::class, 'produk_id');
+    }
+
+    public function alamat()
+    {
+        return $this->belongsTo(AlamatPengiriman::class, 'alamat_pengiriman_id');
     }
 
     // function untuk update qty, sama subtotal

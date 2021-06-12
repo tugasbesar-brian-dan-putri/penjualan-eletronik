@@ -65,17 +65,17 @@
                                 </ul>
                             </div>
                         </div>
-                        <div class="add-to-link">
+                        {{-- <div class="add-to-link">
                             <ul>
                                 <li class="cart"><a class="cart-btn" href="javascript:void(0)" onclick="addToCart({{$item->id}})">Tambah Ke Keranjang </a></li>
-                            </ul>
-                        </div>
-                    </article>
-                    @endforeach
-                </div>
+                        </ul>
+                </div> --}}
+                </article>
+                @endforeach
             </div>
         </div>
-        @endif
+    </div>
+    @endif
     </div>
 </section>
 <!-- Category Tab Area end -->

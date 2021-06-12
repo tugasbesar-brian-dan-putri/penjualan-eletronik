@@ -41,6 +41,7 @@
                             <li class="old-price not-cut text-danger">Rp {{number_format($produk->harga, 0, ',', '.')}}</li>
                         </ul>
                     </div>
+                    <p>Stok Produk : {{ $produk->stok}}</p>
                     <hr>
                     <p>{{$produk->deskripsi}}</p>
                     <hr>
@@ -53,7 +54,7 @@
                     </div> --}}
                     <div class="pro-details-quality mt-3">
                         <div class="cart-plus-minus">
-                            <input class="cart-plus-minus-box" type="text" name="qtybutton" value="1" min="1" />
+                            <input class="cart-plus-minus-box" type="text" name="qtybutton" id="qty-produk" value="1" min="1" />
                         </div>
                         <div class="pro-details-cart btn-hover">
                             @if (Auth::user())
@@ -76,14 +77,19 @@
 @section('script')
 <script>
     function addToCart(id) {
+        var qty = $('#qty-produk').val();
         $.ajax({
             type: "POST"
             , url: `${APP_URL}/detail-cart`
             , data: {
                 id: id
+                , qty: qty
             }
             , success: function(res) {
                 window.location.href = `${APP_URL}/cart`;
+            }
+            , error: function(res) {
+                alert(res.responseJSON.msg)
             }
         });
     }
