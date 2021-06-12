@@ -87,7 +87,7 @@ class ProdukController extends Controller
      */
     public function show($id)
     {
-        $data = $this->model->getModel()->with('kategori')->first();
+        $data = $this->model->getModel()->where('id', $id)->first();
         return view('produk.show', compact('data'));
     }
 
@@ -100,7 +100,7 @@ class ProdukController extends Controller
     public function edit($id)
     {
         $kategori = Kategori::all();
-        $data = $this->model->getModel()->where('id', $id)->with('kategori')->first();
+        $data = $this->model->getModel()->where('id', $id)->first();
         return view('produk.edit', compact('data', 'kategori'));
     }
 

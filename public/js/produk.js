@@ -8,11 +8,11 @@ $(function () {
             url: `${APP_URL}/produk`
         }, columns: [
             { data: "DT_RowIndex", name: "DT_RowIndex", className: "text-center", width: "4%", },
-            { data: "gambar", name: "gambar", width: "10%" },
-            { data: "kategori.nama", name: "kategori.nama", },
-            { data: "nama", name: "nama", },
-            { data: "harga", name: "harga", },
-            { data: "stok", name: "stok", },
+            { data: "gambar", name: "gambar", width: "15%", className: "text-center" },
+            { data: "kategori.nama", name: "kategori.nama", className: "text-center" },
+            { data: "nama", name: "nama", className: "text-center" },
+            { data: "harga", name: "harga", className: "text-center" },
+            { data: "stok", name: "stok", className: "text-center" },
             { data: "action", name: "action", className: "text-center", orderable: false, searchable: false, }
         ]
     });

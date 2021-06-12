@@ -1,6 +1,6 @@
 @extends('layouts.lp.main')
 
-@section('title', 'Tentang Kami')
+@section('title', $produk->nama)
 
 @section('content')
 <section class="breadcrumb-area">
@@ -32,7 +32,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-xl-8 col-lg-4 col-md-12">
+            <div class="col-xl-8 col-lg-4 col-md-12 ">
                 <div class="product-details-content">
                     <h2>{{$produk->kategori->nama}}</h2>
                     <h1>{{$produk->nama}}</h1>
@@ -45,13 +45,6 @@
                     <hr>
                     <p>{{$produk->deskripsi}}</p>
                     <hr>
-                    {{-- <div class="pro-details-list">
-                        <ul>
-                            <li>- 0.5 mm Dail</li>
-                            <li>- Inspired vector icons</li>
-                            <li>- Very modern style</li>
-                        </ul>
-                    </div> --}}
                     <div class="pro-details-quality mt-3">
                         <div class="cart-plus-minus">
                             <input class="cart-plus-minus-box" type="text" name="qtybutton" id="qty-produk" value="1" min="1" />
