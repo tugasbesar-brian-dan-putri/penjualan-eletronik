@@ -7,15 +7,15 @@
 <div class="slider-area">
     <div class="slider-active-3 owl-carousel slider-hm8 owl-dot-style">
         <!-- Slider Single Item Start -->
-        <div class="slider-height-10 d-flex align-items-start justify-content-start bg-img" style="background-image: url({{asset('templates/landing-page')}}/images/slider-image/sample-23.jpg);">
+        <div class="slider-height-10 d-flex align-items-start justify-content-start bg-img" style="background-image: url({{asset('templates/landing-page')}}/images/slider-image/sample-22.jpg);">
             <div class="container">
                 <div class="slider-content-5 slider-animated-1 text-left">
-                    <span class="animated">BOSE SOUND SPORTS</span>
+                    <span class="animated">Selamat Datang Di</span>
                     <h1 class="animated">
-                        <strong>SPORTS DARBUDS</strong><br /> Headphones Bluetooth
+                        <strong>ONLINE SHOP</strong><br /> Electronic
                     </h1>
-                    <p class="animated">Anti-Falling Of Design Sweatproof</p>
-                    <a href="shop-4-column.html" class="shop-btn animated">SHOP NOW</a>
+                    <p class="animated">Platform penjualan barang elektronik terbaik</p>
+                    <a href="{{route('beranda.listproduk')}}" class="shop-btn animated">Shop Now</a>
                 </div>
             </div>
         </div>
@@ -65,17 +65,12 @@
                                 </ul>
                             </div>
                         </div>
-                        {{-- <div class="add-to-link">
-                            <ul>
-                                <li class="cart"><a class="cart-btn" href="javascript:void(0)" onclick="addToCart({{$item->id}})">Tambah Ke Keranjang </a></li>
-                        </ul>
-                </div> --}}
-                </article>
-                @endforeach
+                    </article>
+                    @endforeach
+                </div>
             </div>
         </div>
-    </div>
-    @endif
+        @endif
     </div>
 </section>
 <!-- Category Tab Area end -->

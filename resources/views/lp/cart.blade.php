@@ -102,19 +102,15 @@
                             </tbody>
                         </table>
                     </div>
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="cart-shiping-update-wrapper">
-                                <div class="cart-shiping-update">
-                                    <a href="{{route('beranda.listproduk')}}" class="bg-primary text-white">Lanjut Shopping</a>
-                                </div>
-                                @if ($itemcart)
-                                <div class="cart-clear">
-                                    <a href="javascript:void(0)" class="bg-danger text-white" id="kosong-keranjang" data-id="{{$itemcart->id}}">Kosongkan Keranjang</a>
-                                </div>
-                                @endif
-                            </div>
+                    <div class="row mt-3 mb-5">
+                        <div class="col-6">
+                            <a href="{{route('beranda.listproduk')}}" class="btn btn-primary">Lanjut Belanja</a>
                         </div>
+                        @if ($itemcart)
+                        <div class="col-6 text-right">
+                            <a href="javascript:void(0)" class="btn btn-danger" id="kosong-keranjang" data-id="{{$itemcart->id}}">Kosongkan Keranjang</a>
+                        </div>
+                        @endif
                     </div>
                 </form>
             </div>
@@ -193,7 +189,10 @@
                     </div>
                     <h5>No. Invoice <span>{{ isset($itemcart->no_invoice) ? $itemcart->no_invoice : '0' }}</span></h5>
                     <h4 class="grand-totall-title text-success">TOTAL <span>Rp {{ isset($itemcart->total) ? number_format($itemcart->total, 0,',', '.') : '0'}}</span></h4>
-                    <a href="#" class="bg-success">CHECKOUT</a>
+                    <form action="{{ route('order.store') }}" method="post">
+                        @csrf()
+                        <button type="submit" class="btn btn-success btn-block">CHECKOUT</button>
+                    </form>
                 </div>
             </div>
         </div>

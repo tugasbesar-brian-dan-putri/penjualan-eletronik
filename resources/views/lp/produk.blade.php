@@ -22,7 +22,7 @@
 <!-- Breadcrumb Area End -->
 
 <!-- Category Tab Area Start -->
-<section class="category-tab-area mt-60px">
+<section class="category-tab-area">
     <div class="container">
         <div class="row">
             <div class="col-md-12">
@@ -38,38 +38,39 @@
         <div class="row">
             <div class="col-12">
                 <div class="alert alert-danger">
-                    Data produk masih kosong.
+                    Produk tidak tersedia.
                 </div>
             </div>
         </div>
         @else
-        <div class="tab-content">
-            <div id="accessories" class="tab-pane active">
-                <div class="best-sell-slider owl-carousel owl-nav-style">
-                    @foreach ($produk as $item)
-                    <article class="list-product">
-                        <div class="img-block">
-                            <a href="{{route('beranda.detailproduk', $item->id)}}" class="thumbnail">
-                                <img class="first-img" src="{{asset('storage/produk/' . $item->gambar)}}" alt="" />
-                            </a>
-                        </div>
-                        <div class="product-decs">
-                            <a class="inner-link" href="shop-4-column.html"><span class="text-uppercase">{{$item->kategori->nama}}</span></a>
-                            <h2><a href="{{route('produk.show', 1)}}" class="product-link">{{$item->nama}}</a></h2>
-                            <div class="pricing-meta">
-                                <ul>
-                                    <li class="current-price">Rp {{number_format($item->harga, 0, ',', '.')}}</li>
-                                </ul>
-                            </div>
-                        </div>
-                        {{-- <div class="add-to-link">
+        <div class="row">
+            @if (isset($key))
+            <div class="col-12 mb-5">
+                <h5>Keyword Pencarian Produk : <strong>{{$key}}</strong></h5>
+            </div>
+            @endif
+            @foreach ($produk as $item)
+            <div class="col-md-3 col-6">
+                <article class="list-product">
+                    <div class="img-block">
+                        <a href="{{route('beranda.detailproduk', $item->id)}}" class="thumbnail">
+                            <img class="first-img w-100" src="{{asset('storage/produk/' . $item->gambar)}}" alt="" />
+                        </a>
+                    </div>
+                    <div class="product-decs">
+                        <a class="inner-link" href="shop-4-column.html"><span class="text-uppercase">{{$item->kategori->nama}}</span></a>
+                        <h2><a href="{{route('produk.show', 1)}}" class="product-link" style="font-size: 0.6em;">{{$item->nama}}</a></h2>
+                        <div class="pricing-meta">
                             <ul>
-                                <li class="cart"><a class="cart-btn" href="#">Tambah Ke Keranjang </a></li>
+                                <li class="current-price" style="font-size: 1.5em;">Rp {{number_format($item->harga, 0, ',', '.')}}</li>
                             </ul>
-                        </div> --}}
-                    </article>
-                    @endforeach
-                </div>
+                        </div>
+                    </div>
+                </article>
+            </div>
+            @endforeach
+            <div class="col-12 mb-5">
+                {{$produk->links('pagination::bootstrap-4')}}
             </div>
         </div>
         @endif

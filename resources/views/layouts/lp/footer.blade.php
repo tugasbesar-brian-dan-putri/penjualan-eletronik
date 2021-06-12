@@ -3,7 +3,7 @@
     <div class="container">
         <div class="row">
             <div class="col-12 py-4 text-center">
-                <p class="copy-text">Copyright © <a href="https://hasthemes.com/"> HasThemes</a>. All Rights Reserved</p>
+                <p class="copy-text">Copyright © <a href="https://hasthemes.com/"> 2021</a>. All Rights Reserved</p>
             </div>
         </div>
     </div>

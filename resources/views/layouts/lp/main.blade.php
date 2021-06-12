@@ -13,7 +13,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}" />
 
 
-    <title>@yield('title') - Online Shop</title>
+    <title>@yield('title') - Olshop Electronic</title>
     <!-- Favicon -->
     <link rel="shortcut icon" type="image/x-icon" href="{{asset('templates/landing-page')}}/images/favicon/favicon.png" />
 

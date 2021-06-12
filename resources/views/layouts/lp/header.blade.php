@@ -18,9 +18,15 @@
                                     <ul>
                                         @if (Route::has('login'))
                                         @auth
+                                        @if (Auth::user()->role == "adm")
                                         <li class="after-n">
                                             <a href="{{ route('dashboard.index') }}">Dashboard</a>
                                         </li>
+                                        @else
+                                        <li class="after-n">
+                                            <a href="{{ route('beranda.profil') }}">Profil</a>
+                                        </li>
+                                        @endif
                                         <li>
                                             <a href="{{ route('logout') }}" onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
@@ -59,7 +65,9 @@
                         <!-- Logo Start -->
                         <div class="col-md-2 col-sm-2">
                             <div class="logo">
-                                <a href="{{route('beranda')}}"><img src="{{asset('templates/landing-page')}}/images/logo/logo-electronic-2.jpg" alt="" /></a>
+                                <a href="{{route('beranda')}}">
+                                    <h4 class="font-weight-bold">Olshop Electronic</h4>
+                                </a>
                             </div>
                         </div>
                         <!-- Logo End -->
@@ -70,8 +78,8 @@
                                 <div class="header_account_list search_list">
                                     <a href="javascript:void(0)"><i class="ion-ios-search-strong"></i></a>
                                     <div class="dropdown_search">
-                                        <form action="#">
-                                            <input placeholder="Cari produk ..." type="text" />
+                                        <form action="{{route('beranda.cariProduk')}}" method="GET">
+                                            <input placeholder="Cari produk ..." type="text" name="keywords" />
                                             <button type="submit"><i class="ion-ios-search-strong"></i></button>
                                         </form>
                                     </div>
@@ -108,7 +116,10 @@
                                 <div class="main-navigation d-none d-lg-block">
                                     <ul>
                                         <li><a href="{{route('beranda')}}">Beranda</a></li>
-                                        <li><a href="{{route('beranda.listproduk')}}">Daftar Produk</a></li>
+                                        <li><a href="{{route('beranda.listproduk')}}">Produk</a></li>
+                                        @if (Auth::check())
+                                        <li><a href="{{route('order.index')}}">Order</a></li>
+                                        @endif
                                     </ul>
                                 </div>
                                 <!--Main Navigation End -->
@@ -123,22 +134,24 @@
                 <div class="container position-relative">
                     <div class="row">
                         <!-- Logo Start -->
-                        <div class="col-md-2 col-sm-2">
+                        <div class="col-md-6 col-sm-6">
                             <div class="logo">
-                                <a href="{{route('beranda')}}"><img src="{{asset('templates/landing-page')}}/images/logo/logo-electronic-2.jpg" alt="" /></a>
+                                <a href="{{route('beranda')}}">
+                                    <h4 class="font-weight-bold">OS Electronic</h4>
+                                </a>
                             </div>
                         </div>
                         <!-- Logo End -->
                         <!-- Navigation Start -->
-                        <div class="col-md-10 col-sm-10">
+                        <div class="col-md-6 col-sm-6">
                             <!--Header Bottom Account Start -->
                             <div class="header_account_area">
                                 <!--Seach Area Start -->
                                 <div class="header_account_list search_list">
                                     <a href="javascript:void(0)"><i class="ion-ios-search-strong"></i></a>
                                     <div class="dropdown_search">
-                                        <form action="#">
-                                            <input placeholder="Cari produk ..." type="text" />
+                                        <form action="{{route('beranda.cariProduk')}}" method="GET">
+                                            <input placeholder="Cari produk ..." type="text" name="keywords" />
                                             <button type="submit"><i class="ion-ios-search-strong"></i></button>
                                         </form>
                                     </div>
@@ -160,7 +173,10 @@
                             <nav id="mobile-menu-active">
                                 <ul class="menu-overflow">
                                     <li><a href="{{route('beranda')}}">Beranda</a></li>
-                                    <li><a href="{{route('beranda.listproduk')}}">Daftar Produk</a></li>
+                                    <li><a href="{{route('beranda.listproduk')}}">Produk</a></li>
+                                    @if (Auth::check())
+                                    <li><a href="{{route('order.index')}}">Order</a></li>
+                                    @endif
                                 </ul>
                             </nav>
                         </div>

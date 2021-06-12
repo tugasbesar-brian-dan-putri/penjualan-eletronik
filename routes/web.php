@@ -9,6 +9,7 @@ use App\Http\Controllers\BerandaController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CartDetailController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\OrderController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -24,8 +25,11 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [BerandaController::class, 'index'])->name('beranda');
+Route::get('data-profil', [BerandaController::class, 'profil'])->name('beranda.profil');
+Route::put('data-profil/{id}', [BerandaController::class, 'updateProfil'])->name('beranda.updateprofil');
 Route::get('produk/list', [BerandaController::class, 'listProduk'])->name('beranda.listproduk');
 Route::get('produk/detail/{id}', [BerandaController::class, 'detailProduk'])->name('beranda.detailproduk');
+Route::get('cari-produk', [BerandaController::class, 'cariProduk'])->name('beranda.cariProduk');
 
 Auth::routes(['verify' => true]);
 
@@ -36,6 +40,9 @@ Route::middleware(['verified'])->group(function () {
     Route::get('api/get-count-cart', [CartController::class, 'getCount']);
     Route::post('logout', [LoginController::class, 'logout'])->name('logout');
     Route::resource('cart', CartController::class);
+    Route::get('upload-bukti/{id}', [OrderController::class, 'showUpload'])->name('showupload');
+    Route::post('upload-bukti', [OrderController::class, 'uploadBukti'])->name('uploadBukti');
+    Route::resource('order', OrderController::class);
     Route::resource('detail-cart', CartDetailController::class);
     Route::resource('alamat-pengiriman', AlamatPengirimanController::class);
 
