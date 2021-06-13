@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Checkout;
 use App\Models\Kategori;
+use App\Models\Order;
 use App\Models\Produk;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -20,6 +21,7 @@ class DashboardController extends Controller
         $data = [
             'userCount' => User::where('role', 'usr')->count(),
             'produkCount' => Produk::count(),
+            'orderCount' => Order::count(),
             'kategoriCount' => Kategori::count(),
         ];
         return view('dashboard.admin', compact('data'));

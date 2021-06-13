@@ -46,7 +46,10 @@
                             @foreach ($orders as $order)
                             <tr class="bg-dark">
                                 <td class="py-2 px-5 text-white font-weight-bold">
-                                    @if ($order->cart->status_pembayaran == "belum")
+                                    @if ($order->cart->status_pembayaran == "belum" && $order->bukti_transfer != null)
+                                    <span class="badge badge-warning py-2 px-3 my-1">Proses Verifikasi Admin</span>
+                                    @endif
+                                    @if ($order->bukti_transfer == null)
                                     <a href="javascript:void(0)" onclick="batalOrder({{$order->id}})">
                                         <span class="badge badge-danger py-2 px-3 my-1">Batalkan Order</span>
                                     </a>
@@ -130,11 +133,10 @@
 <script>
     function batalOrder(id) {
         $.ajax({
-            type: "POST"
+            type: "DELETE"
             , url: `${APP_URL}/order/${id}`
             , data: {
                 id: id
-                , _method: "PUT"
             }
             , success: function(res) {
                 window.location.href = `${APP_URL}/order`;

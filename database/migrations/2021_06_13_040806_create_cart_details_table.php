@@ -16,13 +16,14 @@ class CreateCartDetailsTable extends Migration
         Schema::create('cart_details', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('produk_id');
+            $table->unsignedBigInteger('alamat_pengiriman_id')->nullable();
             $table->unsignedBigInteger('cart_id');
             $table->double('qty', 12, 2)->default(0);
             $table->double('harga', 12, 2)->default(0);
             $table->double('diskon', 12, 2)->default(0);
             $table->double('subtotal', 12, 2)->default(0);
-            $table->foreign('cart_id')->references('id')->on('carts');
-            $table->foreign('produk_id')->references('id')->on('produk');
+            $table->foreign('cart_id')->references('id')->on('carts')->onDelete('cascade');
+            $table->foreign('produk_id')->references('id')->on('produk')->onDelete('cascade');
             $table->timestamps();
         });
     }

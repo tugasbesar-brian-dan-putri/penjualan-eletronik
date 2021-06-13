@@ -24,6 +24,13 @@
     <div class="container">
         <h3 class="cart-page-title">Keranjang belanja Anda saat ini</h3>
         <div class="row">
+            @if (Session::has('error'))
+            <div class="col-12">
+                <div class="alert alert-danger">
+                    {{Session::get('error')}}
+                </div>
+            </div>
+            @endif
             <div class="col-12">
                 <form action="#">
                     <div class="table-content table-responsive cart-table-content">
@@ -375,6 +382,9 @@
             }
             , success: function(res) {
                 window.location.href = `${APP_URL}/cart`;
+            }
+            , error: function(err) {
+                alert(err.responseJSON.msg)
             }
         });
     });

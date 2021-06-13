@@ -25,5 +25,15 @@ class DatabaseSeeder extends Seeder
             'password' => Hash::make('admin2021'),
             'email_verified_at' => now()
         ]);
+
+        User::create([
+            'nama' => 'User',
+            'alamat' => 'Malang',
+            'no_hp' => '085648989767',
+            'email' => 'user@gmail.com',
+            'role' => 'usr',
+            'password' => Hash::make('user2021'),
+            'email_verified_at' => now()
+        ]);
     }
 }

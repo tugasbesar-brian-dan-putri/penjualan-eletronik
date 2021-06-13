@@ -16,9 +16,10 @@ class CreateOrdersTable extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('cart_id');
-            $table->unsignedBigInteger('alamat_pengiriman_id');
-            $table->foreign('cart_id')->references('id')->on('carts');
-            $table->foreign('alamat_pengiriman_id')->references('id')->on('alamat_pengiriman');
+            $table->unsignedBigInteger('user_id');
+            $table->string('bukti_transfer')->nullable();
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('cart_id')->references('id')->on('carts')->onDelete('cascade');
             $table->timestamps();
         });
     }

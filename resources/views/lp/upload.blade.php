@@ -23,6 +23,14 @@
 <section class="product-details-area mb-5">
     <div class="container">
         <div class="row">
+            @if (Session::has('error'))
+            <div class="col-12">
+                <div class="alert alert-danger">
+                    {{Session::get('error')}}
+                </div>
+            </div>
+            @endif
+
             <div class="col-md-6 mb-4">
                 <ul class="list-group">
                     <li class="list-group-item">

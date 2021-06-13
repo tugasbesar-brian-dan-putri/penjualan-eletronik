@@ -56,7 +56,10 @@ class AlamatPengirimanController extends Controller
             'user_id' => Auth::user()->id,
             'status' => 1
         ])->first();
-        $cart = Cart::where('user_id', Auth::user()->id)->first();
+        $cart = Cart::where([
+            'user_id' => Auth::user()->id,
+            'status_cart' => "cart"
+        ])->first();
         if ($alamatutama) {
             CartDetail::where('cart_id', $cart->id)->update([
                 'alamat_pengiriman_id' => $alamatutama->id
@@ -119,18 +122,19 @@ class AlamatPengirimanController extends Controller
             'user_id' => Auth::user()->id,
             'status' => 1
         ])->first();
-        $cart = Cart::where('user_id', Auth::user()->id)->first();
+        $cart = Cart::where([
+            'user_id' => Auth::user()->id,
+            'status_cart' => "cart"
+        ])->first();
         if ($alamatutama) {
             CartDetail::where([
                 'cart_id' => $cart->id,
-                'alamat_pengiriman_id' => null
             ])->update([
                 'alamat_pengiriman_id' => $alamatutama->id
             ]);
         } else {
             CartDetail::where([
                 'cart_id' => $cart->id,
-                'alamat_pengiriman_id' => null
             ])->update([
                 'alamat_pengiriman_id' => null
             ]);
@@ -150,7 +154,10 @@ class AlamatPengirimanController extends Controller
             'user_id' => Auth::user()->id,
             'status' => 1
         ])->first();
-        $cart = Cart::where('user_id', Auth::user()->id)->first();
+        $cart = Cart::where([
+            'user_id' => Auth::user()->id,
+            'status_cart' => "cart"
+        ])->first();
         if ($alamatutama) {
             CartDetail::where([
                 'cart_id' => $cart->id,
@@ -159,7 +166,19 @@ class AlamatPengirimanController extends Controller
                 'alamat_pengiriman_id' => $alamatutama->id
             ]);
         }
-        AlamatPengiriman::findOrFail($id)->delete();
+        $alamat = AlamatPengiriman::findOrFail($id);
+        $cartcheckout = Cart::where([
+            'user_id' => Auth::user()->id,
+            'status_cart' => "checkout"
+        ])->get();
+        foreach ($cartcheckout as $val) {
+            foreach ($val->detail as $item) {
+                if ($item->alamat_pengiriman_id == $alamat->id) {
+                    return response()->json(['success' => false, 'msg' => 'Alamat pengiriman tidak dapat dihapus. Karena masih dalam proses order lain.'], 500);
+                }
+            }
+        }
+        $alamat->delete();
 
         return response()->json(['success' => true], 200);
     }

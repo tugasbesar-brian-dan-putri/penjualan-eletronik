@@ -45,6 +45,13 @@ class OrderController extends Controller
             ->where('user_id', Auth::user()->id)
             ->first();
         if ($itemcart) {
+            foreach ($itemcart->detail as $item) {
+                if ($item->alamat_pengiriman_id != null) {
+                    continue;
+                } else {
+                    return redirect()->route('cart.index')->with('error', 'Alamat pengiriman tidak boleh kosong');
+                }
+            }
             $order = Order::create([
                 'cart_id' => $itemcart->id,
                 'user_id' => Auth::user()->id
@@ -52,7 +59,7 @@ class OrderController extends Controller
             $itemcart->update(['status_cart' => 'checkout']);
             return redirect()->route('showupload', $order->id)->with('success', 'Order berhasil disimpan');
         }
-        return abort(404);
+        return back()->with('error', 'Checkout tidak dapat diproses');
     }
 
     /**
@@ -118,9 +125,6 @@ class OrderController extends Controller
             $order = Order::findOrFail($request->id);
             $order->update([
                 'bukti_transfer' => $payload
-            ]);
-            $order->cart->update([
-                'status_pembayaran' => "sudah"
             ]);
             $id = $order->cart->detail->pluck('produk_id')->toArray();
             $qty = $order->cart->detail->pluck('qty')->toArray();
