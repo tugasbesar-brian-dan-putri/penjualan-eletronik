@@ -60,6 +60,9 @@
                                     </thead>
                                     <tbody></tbody>
                                 </table>
+                                <div class="col-12 mb-2 font-weight-bold">
+                                    <a type="submit" class="btn btn-primary" href="{{ ('transaksi.cetakPdf')}}">Cetak <i class="fa fa-print"></i></a>
+                                </div>
                             </div>
                         </div>
                     </div>
