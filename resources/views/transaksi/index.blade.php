@@ -1,6 +1,6 @@
 @extends('layouts.dashboard.main')
 
-@section('title', 'Profil')
+@section('title', 'Data Transaksi')
 
 @section('css')
 <link rel="stylesheet" href="{{ asset('templates/dashboard/vendor') }}/datatables-bs4/css/dataTables.bootstrap4.min.css">
@@ -35,6 +35,11 @@
             @endif
         </div>
         <div class="row">
+            <div class="col mb-2 font-weight-bold">
+                <a class="btn btn-danger" href="{{ route('transaksi.cetak')}}" target="_blank"><i class="fa fa-print mr-3"></i>Cetak Laporan Transaksi</a>
+            </div>
+        </div>
+        <div class="row">
             <div class="col">
                 <div class="card">
                     <div class="card-header card-header-primary">
@@ -60,9 +65,7 @@
                                     </thead>
                                     <tbody></tbody>
                                 </table>
-                                <div class="col-12 mb-2 font-weight-bold">
-                                    <a type="submit" class="btn btn-primary" href="{{ ('transaksi.cetakPdf')}}">Cetak <i class="fa fa-print"></i></a>
-                                </div>
+
                             </div>
                         </div>
                     </div>

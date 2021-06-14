@@ -7,6 +7,7 @@ use App\Models\Cart;
 use App\Models\Order;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
+use PDF;
 
 class OrderController extends Controller
 {
@@ -133,5 +134,12 @@ class OrderController extends Controller
         $order->cart()->delete();
         $order->delete();
         return response()->json(['success' => true], 200);
+    }
+
+    public function cetak()
+    {
+        $data = Order::all();
+        $pdf = PDF::loadview('transaksi.cetak', ['data' => $data])->setPaper('a4', 'landscape');
+        return $pdf->stream();
     }
 }

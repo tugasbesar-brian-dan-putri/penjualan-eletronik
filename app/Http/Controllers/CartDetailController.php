@@ -7,8 +7,6 @@ use App\Models\Cart;
 use App\Models\CartDetail;
 use App\Models\Produk;
 use Illuminate\Http\Request;
-use DB;
-use PDF;
 use Illuminate\Support\Facades\Auth;
 
 class CartDetailController extends Controller
@@ -203,17 +201,5 @@ class CartDetailController extends Controller
             'alamat_pengiriman_id' => $alamatid
         ]);
         return back()->with('success', 'Data berhasil diupdate');
-    }
-
-    public function cetak() {
-        return view('transaksi.cetakPdf');
-    }
-
-    public function cetakPdf() {
-
-        $datas = cartDetail::all();
-        $pdf = PDF::loadView('transaksi.cetakPdf', compact('datas'));
-        return $pdf -> download('transaksi.cetakPdf_'.date('Y-m-d_H-i-s').
-            '.pdf');
     }
 }

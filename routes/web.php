@@ -11,8 +11,6 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\CartDetailController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\OrderController;
-use DB;
-use PDF;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -47,11 +45,11 @@ Route::middleware(['verified'])->group(function () {
     Route::post('upload-bukti', [OrderController::class, 'uploadBukti'])->name('uploadBukti');
     Route::resource('order', OrderController::class);
     Route::resource('detail-cart', CartDetailController::class);
-    Route::resource('transaksi/cetakPdf', CartDetailController::class);
     Route::resource('alamat-pengiriman', AlamatPengirimanController::class);
 
     Route::group(['middleware' => ['admin']], function () {
         Route::get('/profil', [UserController::class, 'profil'])->name('user.profil');
+        Route::get('transaksi/cetak', [AdminOrderController::class, 'cetak'])->name('transaksi.cetak');
 
         Route::resource('dashboard', DashboardController::class)->only(['index']);
         Route::resource('transaksi', AdminOrderController::class);
